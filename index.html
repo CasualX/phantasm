@@ -1,0 +1,1554 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<title>Bing</title>
+	<script src="deps/vue.js"></script>
+
+<style>
+.app-connect {
+	padding: 1rem;
+}
+.app-connect > form {
+	display: flex;
+	flex-direction: column;
+	max-width: 50rem;
+}
+.app-connect > form > label {
+	margin-top: 0.5rem;
+}
+</style>
+<style>
+html, body, #app-container, .app-main {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+	padding: 0;
+	margin: 0;
+}
+.app-main {
+	display: grid;
+	grid-template: 3rem auto / auto;
+}
+
+.app-main > header {
+	display: flex;
+	flex-direction: row;
+
+	border-bottom: 1px solid #888;
+}
+.app-main > header > h1 {
+	line-height: 3rem;
+	width: 15rem;
+}
+.app-main > header > nav {
+	display: flex;
+	flex-direction: row;
+
+	height: 3rem;
+}
+.app-main > header > nav > button {
+	height: 3rem;
+	margin: 0 0.1rem;
+	cursor: pointer;
+
+	border: 1px solid #888;
+	background-color: white;
+}
+.app-main > header > nav > button.active {
+	border-bottom: none;
+}
+.app-main > div {
+	overflow: auto;
+}
+</style>
+<style>
+.text-stroke--outline {
+	text-shadow: 2px 0 0 #000, 0 -2px 0 #000, 0 2px 0 #000, -2px 0 0 #000;
+}
+.user-select--none {
+	user-select: none;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+}
+</style>
+<style>
+.app-debugger {
+	display: grid;
+	grid-template: auto / 14rem auto;
+}
+.app-debugger > form {
+	display: flex;
+	flex-direction: column;
+	margin: 1rem;
+}
+</style>
+<style>
+.debug-state {
+	margin: 1rem;
+}
+.debug-state > pre {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+</style>
+<style>
+.debug-xss {
+	margin: 1rem;
+}
+</style>
+<style>
+.app-radar {
+	display: grid;
+	grid-template: auto / 14rem auto;
+}
+.app-radar > section {
+	background-color: white;
+	overflow: hidden;
+}
+.app-radar > form {
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+}
+.app-radar > form > label {
+	margin-top: 0.5rem;
+}
+</style>
+<style>
+.apex-loot-icon {
+	position: relative;
+	width: 0px;
+	height: 0px;
+	overflow: visible;
+}
+.apex-loot-icon > img {
+	position: absolute;
+	/* width: 16px; */
+	height: 16px;
+	left: -8px;
+	top: -8px;
+}
+.apex-loot-icon > img.common {
+	filter: grayscale(100%) brightness(150%) drop-shadow(0 0 1px white);
+}
+.apex-loot-icon > img.rare {
+	filter: grayscale(100%) brightness(150%) sepia(100%) hue-rotate(-180deg) saturate(1000%) drop-shadow(0 0 1px white);
+}
+.apex-loot-icon > img.epic {
+	filter: grayscale(100%) brightness(150%) sepia(100%) hue-rotate(-100deg) saturate(1000%) drop-shadow(0 0 1px white);
+}
+.apex-loot-icon > img.legendary {
+	filter: grayscale(100%) brightness(150%) sepia(100%) hue-rotate(5deg) saturate(1000%) drop-shadow(0 0 1px white);
+}
+.apex-loot-icon > img.special {
+	filter: grayscale(100%) brightness(150%) sepia(100%) hue-rotate(-50deg) saturate(1000%) drop-shadow(0 0 1px white);
+}
+</style>
+<style>
+.apex-loot {
+	width: 0px;
+	height: 0px;
+	overflow: visible;
+}
+</style>
+<style>
+.apex-player {
+	width: 0px;
+	height: 0px;
+	overflow: visible;
+}
+.apex-player > div {
+	position: relative;
+}
+.apex-player > div > svg {
+	position: absolute;
+	transform-origin: center center;
+	top: -10px;
+	left: -10px;
+	z-index: 1;
+}
+.apex-player > div > span.name {
+	position: absolute;
+	top: 10px;
+	left: -20px;
+	z-index: -1;
+
+	color: white;
+	font-size: 0.8rem;
+	white-space: nowrap;
+}
+.apex-player > div > span.armor {
+	position: absolute;
+	top: -5px;
+	left: -2px;
+	z-index: 2;
+
+	color: white;
+	font-size: 8px;
+	white-space: nowrap;
+}
+</style>
+<style>
+.apex-radar {
+	width: 100%;
+	height: 100%;
+	background-color: #2c3238;
+	position: relative;
+}
+.apex-radar__canvas {
+	position: relative;
+}
+.apex-radar__canvas > img {
+	transform-origin: top left;
+}
+.apex-radar__canvas > * {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.apex-radar > p {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	color: white;
+	margin: 0.5rem;
+}
+</style>
+<style>
+.mw-player {
+	width: 0px;
+	height: 0px;
+	overflow: visible;
+}
+.mw-player > div {
+	position: relative;
+}
+.mw-player > div > svg.icon {
+	position: absolute;
+	transform-origin: center center;
+	top: -10px;
+	left: -10px;
+	z-index: 1;
+}
+.mw-player > div > svg.elevation {
+	position: absolute;
+	transform-origin: center center;
+	left: 10px;
+	z-index: 1;
+}
+</style>
+<style>
+.mw-radar {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	background-color: black;
+}
+.mw-radar__canvas {
+	position: relative;
+	background-color: black;
+}
+.mw-radar__canvas > * {
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+</style>
+</head>
+<body>
+
+<template id="app-connect">
+	<div class="app-connect">
+		<p>Please start by connecting to a host.</p>
+		<form @submit.prevent="submit">
+			<label>Address:</label>
+			<input type="text" v-model="socket.address" :readonly="connecting" :disabled="connecting">
+			<span class="error">{{ socket.error }}</span>
+			<label>Username:</label>
+			<input type="text" v-model="socket.username" :readonly="connecting" :disabled="connecting">
+			<label>Secret:</label>
+			<input type="password" v-model="socket.secret" :readonly="connecting" :disabled="connecting">
+			<label>Share:</label>
+			<input type="text" :value="shareURL" readonly="readonly">
+			<label></label>
+			<input v-if="!connecting" type="submit" value="Connect">
+			<input v-if="connecting" type="submit" value="Disconnect">
+		</form>
+	</div>
+</template>
+<template id="app-main">
+	<div class="app-main">
+		<header>
+			<h1>Phantasm UI</h1>
+			<nav v-if="socket.connected()">
+				<button v-for="tab in tabs" @click="show(tab.component)" :class="{ active: component == tab.component }">{{ tab.title }}</button>
+			</nav>
+		</header>
+		<keep-alive>
+			<component :is="component" :socket="socket" style="overflow: auto"></component>
+		</keep-alive>
+	</div>
+</template>
+<template id="app-debugger">
+	<div class="app-debugger">
+		<form @submit.prevent="">
+			<button v-if="socket.paused" @click="togglePause">Unpause</button>
+			<button v-if="!socket.paused" @click="togglePause">Pause</button>
+			<button @click="click(null)">State</button>
+			<template v-for="panel in Object.keys(socket.debugText)">
+				<button @click="click(panel)">{{ panel }}</button>
+			</template>
+		</form>
+		<debug-state v-if="component == 'debug-state'" :state="socket.state"></debug-state>
+		<debug-xss v-if="component == 'debug-xss'" :html="socket.debugText[panel]"></debug-xss>
+	</div>
+</template>
+<template id="debug-state">
+	<div class="debug-state">
+		<template v-for="group in groups">
+			<h3>{{ group.name }}</h3>
+			<pre v-if="'text' in group">{{ group.text }}</pre>
+			<label><input v-if="'index' in group" type="text" @input="setChoice(group.name, $event.target.value)" ></label>
+		</template>
+	</div>
+</template>
+<template id="debug-xss">
+	<div class="debug-xss" v-html="html"></div>
+</template>
+<template id="app-radar">
+	<div class="app-radar">
+		<form @submit.prevent="" class="user-select--none">
+			<h3>Settings</h3>
+			<label>Zoom:<input type="range" v-model="camera.zoom" min="0.5" max="3.0" step="any"></label>
+			<label>Follow:<input type="text" v-model="camera.follow"></label>
+			<label><input type="checkbox" v-model="camera.showNames" />Show player names</label>
+			<label><button @click="fullscreen">Fullscreen</button></label>
+		</form>
+		<section ref="radar">
+			<component v-if="component" :is="component" :state="socket.state" :apexrings="socket.apexRings" :camera="camera"></component>
+			<div v-else>
+				<template v-if="socket.game">
+					<p>Now playing {{ socket.game }}.</p>
+					<p>This game is not yet supported.</p>
+				</template>
+				<p v-else>Waiting for host to start playing...</p>
+			</div>
+		</section>
+	</div>
+</template>
+<template id="apex-loot-icon">
+	<div class="apex-loot-icon"><img v-if="url" :class="imgClass" :src="url"></div>
+</template>
+<template id="apex-loot">
+	<div class="apex-loot" :style="{ display: relevant ? 'block' : 'none' }"><apex-loot-icon :id="entity.custom_script_int"></apex-loot-icon></div>
+</template>
+<template id="apex-player">
+	<div class="apex-player">
+		<div :style="playerStyle">
+			<svg viewBox="-1 -1 2 2" width="20px" height="20px" :style="iconStyle">
+				<polygon points="1,0 -1,-0.75 -0.25,0 -1,0.75" stroke="black" :fill="color" />
+			</svg>
+			<span class="armor text-stroke--outline">{{ armorText }}</span>
+			<span v-if="camera.showNames" class="name text-stroke--outline">{{ playerName }}</span>
+		</div>
+	</div>
+</template>
+<template id="apex-radar">
+	<div class="apex-radar user-select--none" ref="canvas">
+		<div v-if="radarMath" class="apex-radar__canvas" :style="{ transform: cameraTranslate }">
+			<img :src="radarMath.url" :style="{ transform: `scale(${camera.zoom})` }">
+			<svg viewBox="-1 -1 2 2" :style="worldStyle">
+				<circle cx="0" cy="0" r="1" stroke="red" fill="none" vector-effect="non-scaling-stroke" stroke-width="2" />
+			</svg>
+			<svg v-for="ring in apexrings" :key="ring.radius" :style="ringStyle(ring)">
+				<circle cx="0" cy="0" r="1" stroke="green" fill="none" vector-effect="non-scaling-stroke" stroke-width="2"/>
+			</svg>
+			<!-- <apex-loot v-for="entity in lootEntities" :key="entity.entity_ptr" :state="state" :entity="entity" :local="cameraPlayer" :camera="camera" :style="{ transform: entityTranslate(entity.origin) }"></apex-loot> -->
+			<apex-player v-for="entity in playerEntities" :key="entity.entity_ptr" :state="state" :entity="entity" :local="cameraPlayer" :camera="camera" :style="{ transform: entityTranslate(entity.origin) }"></apex-player>
+		</div>
+		<p class="text-stroke--outline">{{ state.client.level_name }}</p>
+	</div>
+</template>
+<template id="mw-player">
+	<div class="mw-player">
+		<div @click="selectPlayer">
+			<svg class="icon" viewBox="-1 -1 2 2" width="20px" height="20px" :style="iconStyle">
+				<polygon points="1,0 -0.5,-1 -0.5,-0.5 -1,0 -0.5,0.5 -0.5,1" :stroke="strokeColor" fill="none" stroke-width="0.15" />
+			</svg>
+			<svg class="elevation" v-if="elevation <= -1.0" style="top: -12px" height="24" viewBox="0 0 24 24" width="24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" fill="red"/></svg>
+			<svg class="elevation" v-if="elevation <= -2.5" style="top: -6px" height="24" viewBox="0 0 24 24" width="24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" fill="red"/></svg>
+			<svg class="elevation" v-if="elevation >= 1.0" style="top: -12px" height="24" viewBox="0 0 24 24" width="24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z" fill="red"/></svg>
+			<svg class="elevation" v-if="elevation >= 2.5" style="top: -18px" height="24" viewBox="0 0 24 24" width="24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6 1.41 1.41z" fill="red"/></svg>
+		</div>
+	</div>
+</template>
+<template id="mw-radar">
+	<div class="mw-radar user-select--none" ref="canvas" id="mw-canvas-ref">
+		<div class="mw-radar__canvas">
+			<mw-player v-for="entity in playerEntities" :key="entity.index" :entity="entity" :camera-entity="cameraEntity" @select-player="selectPlayer($event)" :style="{ transform: entityTranslate(entity.origin) }" ></mw-player>
+		</div>
+	</div>
+</template>
+<div id="app-container">
+	<app-main></app-main>
+</div>
+</body>
+
+<script>
+"use strict"
+
+Vue.component('app-connect', {
+	data: function() {
+		return {};
+	},
+	props: {
+		socket: Object,
+	},
+	computed: {
+		connecting: function() {
+			return this.socket.socket != null;
+		},
+		shareURL: function() {
+			let share = window.location.href.split("#")[0] +
+				"#address=" + encodeURIComponent(this.socket.address) +
+				"&username=" + encodeURIComponent(this.socket.username) +
+				"&secret=" + encodeURIComponent(this.socket.secret);
+			return share;
+		},
+	},
+	methods: {
+		submit: function(e) {
+			if (this.connecting) {
+				this.socket.disconnect();
+			}
+			else {
+				this.socket.connect();
+			}
+		},
+	},
+	mounted: function() {
+		let args = argv();
+		if ('address' in args) {
+			this.socket.address = args.address;
+		}
+		if ('username' in args) {
+			this.socket.username = args.username;
+		}
+		if ('secret' in args) {
+			this.socket.secret = args.secret;
+		}
+	},
+	template: '#app-connect',
+});
+</script>
+<script>
+"use strict"
+
+Vue.component('app-main', {
+	data: function() {
+		return {
+			component: 'app-connect',
+			socket: new WebSocketStore(),
+			tabs: Object.freeze([
+				{ component: 'app-connect', title: 'Connection' },
+				{ component: 'app-radar', title: 'Radar' },
+				{ component: 'app-debugger', title: 'Debugger' },
+				{ component: null, title: 'Updates' },
+				{ component: null, title: 'Admin' },
+			]),
+		};
+	},
+	methods: {
+		show: function(component) {
+			if (component) {
+				this.component = component;
+			}
+		},
+	},
+	watch: {
+		socket: {
+			role: function(role) {
+				// Switch to radar when connecting
+				if (role) {
+					this.component = 'app-radar';
+				}
+				else {
+					this.component = 'app-connect';
+				}
+			},
+		},
+	},
+	template: '#app-main',
+});
+</script>
+<script>
+"use strict"
+
+class WebSocketStore {
+	constructor() {
+		this.address = 'ws://localhost:30145/';
+		this.username = 'Anonymous';
+		this.secret = '';
+
+		this.socket = null;
+		this.error = null;
+
+		this.game = null;
+		this.state = null;
+		this.role = null;
+		this.paused = false;
+		this.debugText = {};
+
+		this.strings = {};
+		this.apexRings = [];
+	}
+	reset() {
+		if (this.socket) {
+			this.socket.onopen = null;
+			this.socket.onclose = null;
+			this.socket.onerror = null;
+			this.socket.onmessage = null;
+			this.socket = null;
+		}
+		this.game = null;
+		this.state = null;
+		this.role = null;
+		this.paused = false;
+		this.debugText = {};
+	}
+	connect() {
+		this.error = null;
+		try {
+			let sock = new WebSocket(this.address);
+			sock.onopen = event => this.onopen(event);
+			sock.onclose = event => this.onclose(event);
+			sock.onerror = event => this.onerror(event);
+			sock.onmessage = event => this.onmessage(event);
+			this.socket = sock;
+			window.SOCKET = sock;
+		}
+		catch (ex) {
+			console.error(ex);
+			this.error = ex;
+		}
+	}
+	disconnect() {
+		if (this.socket) {
+			this.socket.close();
+		}
+	}
+	connected() {
+		return this.socket != null && this.role != null;
+	}
+	onopen(event) {
+		this.socket.send("net.login! " + this.username);
+	}
+	onclose(event) {
+		this.reset();
+	}
+	onerror(event) {
+		this.reset();
+		this.error = `Can't establish a connection to the server at ${this.address}.`;
+		console.error(event);
+	}
+	onmessage(event) {
+		try {
+			let data = JSON.parse(event.data);
+			switch (data.target) {
+				case 'auth/welcome':
+					this.welcome(data.message);
+					break;
+				case 'attachGame':
+					this.attachGame(data.message);
+					break;
+				case 'detachGame':
+					this.detachGame(data.message);
+					break;
+				case 'debug/write':
+					this.debugWrite(data.message);
+					break;
+				case 'console/log':
+					console.log(data.message);
+					break;
+				case this.game + '/update':
+					this.updateGame(data.message);
+					break;
+				case this.game + '/radar':
+					this.updateRadar(data.message);
+					break;
+				case 'strings':
+					this.updateStrings(data.message);
+					break;
+				case 'apex/rings':
+					this.apexRings = data.message;
+					break;
+			}
+		}
+		catch (ex) {
+			console.error(ex);
+		}
+	}
+	welcome(role) {
+		this.role = window.role = Object.freeze(role);
+		console.log("Welcome " + role.name + " (" + role.addr + "): " + role.role);
+	}
+	attachGame(game) {
+		this.game = game;
+		this.socket.send("net.state!");
+	}
+	detachGame(game) {
+		this.game = null;
+	}
+	updateGame(state) {
+		if (!this.paused) {
+			if (this.game == "apex") {
+				let lookup = [];
+				for (let entity of state.entity_list.entities) {
+					lookup[entity.index] = entity;
+				}
+				state.entity_list.lookup = lookup;
+			}
+			else if (this.game == "mw") {
+				let lookup = [];
+				for (let entity of state.entities_data.list) {
+					lookup[entity.index] = entity;
+				}
+				state.entities_data.lookup = lookup;
+			}
+			this.state = window.state = Object.freeze(state);
+		}
+		// Queue a new state request as soon as we receive one!
+		if (this.game) {
+			this.socket.send("net.state!");
+		}
+	}
+	updateRadar(state) {
+		if (!this.paused) {
+			window.radar = state;
+		}
+	}
+	debugWrite(message) {
+		if (!this.paused) {
+			Vue.set(this.debugText, message.scope, "" + message.content);
+		}
+	}
+	updateStrings(message) {
+		this.strings[message.name] = message.values;
+	}
+};
+</script>
+<script>
+"use strict"
+
+/// Parse arguments from URL hash.
+function argv(hash) {
+	if (hash == null) {
+		hash = window.location.hash;
+	}
+	let args = {};
+	if (hash.startsWith("#")) {
+		for (let arg of hash.substring(1).split("&")) {
+			let [key, value] = arg.split("=");
+			try {
+				key = decodeURIComponent(key);
+				args[key] = decodeURIComponent(value);
+			}
+			catch (ex) {
+				console.error(ex, key, value);
+			}
+		}
+	}
+	return args;
+}
+</script>
+<script>
+"use strict"
+
+Vue.component('app-debugger', {
+	data() {
+		return {
+			component: 'debug-state',
+			panel: null,
+		};
+	},
+	props: {
+		socket: WebSocketStore,
+	},
+	methods: {
+		togglePause() {
+			this.socket.paused = !this.socket.paused;
+		},
+		click(panel) {
+			if (panel) {
+				this.component = 'debug-xss';
+				this.panel = panel;
+			}
+			else {
+				this.component = 'debug-state';
+				this.panel = null;
+			}
+		},
+	},
+	template: '#app-debugger',
+});
+</script>
+<script>
+"use strict"
+
+Vue.component('debug-state', {
+	data: function() {
+		return {
+			choice: {},
+		};
+	},
+	props: {
+		state: Object,
+	},
+	computed: {
+		groups: function() {
+			let groups = [];
+			if (this.state != null) {
+				const stringify = (name, object) => {
+					// Classify the keys of the object
+					let valueKeys = [];
+					let objectKeys = [];
+					for (let [key, value] of Object.entries(object)) {
+						if (value instanceof Array) {
+							if (value.length > 0) {
+								if (typeof value[0] == "object") {
+									objectKeys.push(key);
+								}
+								else {
+									valueKeys.push(key);
+								}
+							}
+							else {
+								valueKeys.push(key);
+							}
+						}
+						else if (value instanceof Object) {
+							objectKeys.push(key);
+						}
+						else {
+							valueKeys.push(key);
+						}
+					}
+					if (valueKeys.length > 0) {
+						let keyWidth = Math.max.apply(null, valueKeys.map(key => key.length)) + 2;
+						let text = valueKeys.map(key => (key + ": ").padEnd(keyWidth) + object[key]).join("\n");
+						groups.push({
+							name: name,
+							text: text,
+						});
+					}
+					for (let key of objectKeys) {
+						let childName = name == "Root" ? key : name + "." + key;
+						if (object[key] instanceof Array) {
+							let index = this.choice[childName];
+							groups.push({
+								name: childName,
+								index: index,
+							});
+							let child = object[key][index];
+							if (child != null) {
+								stringify(childName + "[" + index + "]", child);
+							}
+						}
+						else if (object[key] instanceof Object) {
+							stringify(childName, object[key]);
+						}
+					}
+				}
+				stringify("Root", this.state);
+			}
+			return groups;
+		},
+	},
+	methods: {
+		setChoice: function(key, value) {
+			Vue.set(this.choice, key, value);
+		},
+	},
+	template: '#debug-state',
+});
+</script>
+<script>
+"use strict"
+
+Vue.component('debug-xss', {
+	data: function() {
+		return {};
+	},
+	props: {
+		html: String,
+	},
+	template: '#debug-xss',
+});
+</script>
+<script>
+"use strict"
+
+class CameraStore {
+	constructor() {
+		this.zoom = 1.0;
+		this.follow = '';
+		this.showNames = true;
+	}
+}
+</script>
+<script>
+"use strict"
+
+class RadarMath {
+	constructor(s1, s2, url, pixelWidth, pixelHeight) {
+		this.url = url;
+		this.pixelWidth = pixelWidth;
+		this.pixelHeight = pixelHeight;
+
+		var [Cx1, Cy1, Px1, Py1] = s1;
+		var [Cx2, Cy2, Px2, Py2] = s2;
+
+		var Rx = (Cx2 - Cx1) / (Px2 - Px1);
+		var Ry = (Cy2 - Cy1) / (Py2 - Py1);
+
+		this.originLeft = Cx1 - (Cx2 - Cx1) * Px1 / (Px2 - Px1);
+		this.originRight = Cx2 + (pixelWidth - Px2) * Rx;
+		this.originTop = Cy1 - Py1 * Ry;
+		this.originBottom = Cy2 + (pixelHeight - Py2) * Ry;
+		this.originWidth = this.originRight - this.originLeft;
+		this.originHeight = this.originBottom - this.originTop;
+	}
+	toPixel(origin) {
+		let x = (origin[0] - this.originLeft) * this.pixelWidth / this.originWidth;
+		let y = (origin[1] - this.originTop) * this.pixelHeight / this.originHeight;
+		return [x, y];
+	}
+	circleToPixel(origin, radius) {
+		let x = (origin[0] - this.originLeft) * this.pixelWidth / this.originWidth;
+		let y = (origin[1] - this.originTop) * this.pixelHeight / this.originHeight;
+		let r = radius * this.pixelWidth / this.originWidth;
+		return [x, y, r];
+	}
+}
+</script>
+<script>
+"use strict"
+
+Vue.component('app-radar', {
+	data: function() {
+		return {
+			camera: new CameraStore(),
+		};
+	},
+	props: {
+		socket: Object,
+	},
+	computed: {
+		component: function() {
+			switch (this.socket.game) {
+				case 'apex':
+					return 'apex-radar';
+				case 'mw':
+					return 'mw-radar';
+				default:
+					return null;
+			}
+		},
+	},
+	methods: {
+		fullscreen: function(e) {
+			this.$refs.radar.requestFullscreen();
+		},
+	},
+	template: '#app-radar',
+});
+</script>
+<script>
+"use strict"
+
+const APEX_ITEMS = Object.freeze({
+	LIGHT_ROUNDS: 121,
+	ENERGY_AMMO: 122,
+	SHOTGUN_SHELLS: 123,
+	HEAVY_ROUNDS: 124,
+	SNIPER_AMMO: 125,
+
+	ULTIMATE_ACCELERANT: 162,
+	PHOENIX_KIT: 163,
+	MED_KIT: 164,
+	SYRINGE: 165,
+	SHIELD_BATTERY: 166,
+	SHIELD_CELL: 167,
+
+	HELMET_LV1: 168,
+	HELMET_LV2: 169,
+	HELMET_LV3: 170,
+	HELMET_LV4: 171,
+	BODY_ARMOR_LV1: 172,
+	BODY_ARMOR_LV2: 173,
+	BODY_ARMOR_LV3: 174,
+	BODY_ARMOR_LV4: 175,
+	EVO_ARMOR_LV0: 176,
+	EVO_ARMOR_LV1: 177,
+	EVO_ARMOR_LV2: 178,
+	EVO_ARMOR_LV3: 179,
+	EVO_ARMOR_LV4: 180,
+	KNOCKDOWN_SHIELD_LV1: 182,
+	KNOCKDOWN_SHIELD_LV2: 183,
+	KNOCKDOWN_SHIELD_LV3: 184,
+	KNOCKDOWN_SHIELD_LV4: 185,
+	BACKPACK_LV1: 186,
+	BACKPACK_LV2: 187,
+	BACKPACK_LV3: 188,
+	BACKPACK_LV4: 189,
+
+	THERMITE_GRENADE: 190,
+	FRAG_GRENADE: 191,
+	ARC_STAR: 192,
+
+	HCOG_CLASSIC: 193,
+	HCOG_BRUISER: 194,
+	HOLO: 195,
+	VARIABLE_HOLO: 196,
+	DIGITAL_THREAT: 197,
+	HCOG_RANGER: 198,
+	VARIABLE_AOG: 199,
+	SNIPER: 200,
+	VARIABLE_SNIPER: 201,
+	DIGITAL_SNIPER_THREAT: 202,
+
+	BARREL_STABILIZER_LV1: 203,
+	BARREL_STABILIZER_LV2: 204,
+	BARREL_STABILIZER_LV3: 205,
+	BARREL_STABILIZER_LV4: 206,
+	LIGHT_MAGAZINE_LV1: 207,
+	LIGHT_MAGAZINE_LV2: 208,
+	LIGHT_MAGAZINE_LV3: 209,
+	LIGHT_MAGAZINE_LV4: 210,
+	HEAVY_MAGAZINE_LV1: 211,
+	HEAVY_MAGAZINE_LV2: 212,
+	HEAVY_MAGAZINE_LV3: 213,
+	HEAVY_MAGAZINE_LV4: 214,
+	ENERGY_MAGAZINE_LV1: 215,
+	ENERGY_MAGAZINE_LV2: 216,
+	ENERGY_MAGAZINE_LV3: 217,
+	ENERGY_MAGAZINE_LV4: 218,
+	SNIPER_MAGAZINE_LV1: 219,
+	SNIPER_MAGAZINE_LV2: 220,
+	SNIPER_MAGAZINE_LV3: 221,
+	SNIPER_MAGAZINE_LV4: 222,
+	SHOTGUN_BOLT_LV1: 223,
+	SHOTGUN_BOLT_LV2: 224,
+	SHOTGUN_BOLT_LV3: 225,
+	STANDARD_STOCK_LV1: 226,
+	STANDARD_STOCK_LV2: 227,
+	STANDARD_STOCK_LV3: 228,
+	SNIPER_STOCK_LV1: 229,
+	SNIPER_STOCK_LV2: 230,
+	SNIPER_STOCK_LV3: 231,
+
+	TURBOCHARGER: 232,
+	SKULLPIERCER_RIFLING: 233,
+	HAMMERPOINT_ROUNDS: 234,
+});
+const APEX_ITEMS_LOOKUP = (function() {
+	let lookup = [];
+	for (let [key, value] of Object.entries(APEX_ITEMS)) {
+		lookup[value] = key;
+	}
+	return Object.freeze(lookup);
+})();
+
+Vue.component('apex-loot-icon', {
+	data: function() {
+		return {
+			items: APEX_ITEMS,
+			lookup: APEX_ITEMS_LOOKUP,
+		};
+	},
+	props: {
+		id: Number,
+	},
+	computed: {
+		color: function() {
+			switch (this.id) {
+				case APEX_ITEMS.HELMET_LV1:
+				case APEX_ITEMS.BODY_ARMOR_LV1:
+				case APEX_ITEMS.EVO_ARMOR_LV1:
+				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV1:
+				case APEX_ITEMS.BACKPACK_LV1:
+					return 'common';
+				case APEX_ITEMS.HELMET_LV2:
+				case APEX_ITEMS.BODY_ARMOR_LV2:
+				case APEX_ITEMS.EVO_ARMOR_LV2:
+				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV2:
+				case APEX_ITEMS.BACKPACK_LV2:
+					return 'rare';
+				case APEX_ITEMS.HELMET_LV3:
+				case APEX_ITEMS.BODY_ARMOR_LV3:
+				case APEX_ITEMS.EVO_ARMOR_LV3:
+				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV3:
+				case APEX_ITEMS.BACKPACK_LV3:
+					return 'epic';
+				case APEX_ITEMS.HELMET_LV4:
+				case APEX_ITEMS.BODY_ARMOR_LV4:
+				case APEX_ITEMS.EVO_ARMOR_LV4:
+				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV4:
+				case APEX_ITEMS.BACKPACK_LV4:
+					return 'legendary';
+
+				case APEX_ITEMS.HCOG_CLASSIC:
+				case APEX_ITEMS.HOLO:
+					return 'common';
+				case APEX_ITEMS.HCOG_BRUISER:
+				case APEX_ITEMS.VARIABLE_HOLO:
+				case APEX_ITEMS.SNIPER:
+					return 'rare';
+				case APEX_ITEMS.HCOG_RANGER:
+				case APEX_ITEMS.VARIABLE_AOG:
+				case APEX_ITEMS.VARIABLE_SNIPER:
+					return 'epic';
+				case APEX_ITEMS.DIGITAL_THREAT:
+				case APEX_ITEMS.DIGITAL_SNIPER_THREAT:
+					return 'legendary';
+
+				case APEX_ITEMS.BARREL_STABILIZER_LV1:
+				case APEX_ITEMS.LIGHT_MAGAZINE_LV1:
+				case APEX_ITEMS.HEAVY_MAGAZINE_LV1:
+				case APEX_ITEMS.SNIPER_MAGAZINE_LV1:
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV1:
+				case APEX_ITEMS.SHOTGUN_BOLT_LV1:
+				case APEX_ITEMS.STANDARD_STOCK_LV1:
+				case APEX_ITEMS.SNIPER_STOCK_LV1:
+					return 'common';
+				case APEX_ITEMS.BARREL_STABILIZER_LV2:
+				case APEX_ITEMS.LIGHT_MAGAZINE_LV2:
+				case APEX_ITEMS.HEAVY_MAGAZINE_LV2:
+				case APEX_ITEMS.SNIPER_MAGAZINE_LV2:
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV2:
+				case APEX_ITEMS.SHOTGUN_BOLT_LV2:
+				case APEX_ITEMS.STANDARD_STOCK_LV2:
+				case APEX_ITEMS.SNIPER_STOCK_LV2:
+					return 'rare';
+				case APEX_ITEMS.BARREL_STABILIZER_LV3:
+				case APEX_ITEMS.LIGHT_MAGAZINE_LV3:
+				case APEX_ITEMS.HEAVY_MAGAZINE_LV3:
+				case APEX_ITEMS.SNIPER_MAGAZINE_LV3:
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV3:
+				case APEX_ITEMS.SHOTGUN_BOLT_LV3:
+				case APEX_ITEMS.STANDARD_STOCK_LV3:
+				case APEX_ITEMS.SNIPER_STOCK_LV3:
+					return 'epic';
+				case APEX_ITEMS.BARREL_STABILIZER_LV4:
+				case APEX_ITEMS.LIGHT_MAGAZINE_LV4:
+				case APEX_ITEMS.HEAVY_MAGAZINE_LV4:
+				case APEX_ITEMS.SNIPER_MAGAZINE_LV4:
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV4:
+					return 'legendary'
+
+				case APEX_ITEMS.HAMMERPOINT_ROUNDS:
+					return 'epic';
+				case APEX_ITEMS.SKULLPIERCER_RIFLING:
+					return 'legendary'
+
+				default:
+					return null;
+			}
+		},
+		imgClass: function() {
+			let classes = [];
+			if (this.color) {
+				classes.push(this.color);
+			}
+			return classes;
+		},
+		url: function() {
+			// https://apexlegends.gamepedia.com/Category:Icons
+			switch (this.id) {
+				case APEX_ITEMS.ENERGY_AMMO: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/2d/Energy_Ammo.svg?version=390e43edd3090b2028a803464d9b0adb';
+				case APEX_ITEMS.LIGHT_ROUNDS: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/a/a5/Light_Rounds.svg?version=fc9faab38694bc023271ff726a274324';
+				case APEX_ITEMS.SHOTGUN_SHELLS: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/4/42/Shotgun_Shells.svg?version=241ad6a7fc4f53cfd0e5d99a4931f0b1';
+				case APEX_ITEMS.HEAVY_ROUNDS: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/5/55/Heavy_Rounds.svg?version=33c68df7515676ea25e49ac581943c23';
+				case APEX_ITEMS.SNIPER_AMMO: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/5/55/Heavy_Rounds.svg?version=33c68df7515676ea25e49ac581943c23';
+
+				case APEX_ITEMS.ULTIMATE_ACCELERANT: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/e/e5/Ultimate_Accelerant.svg?version=7b8cb618912fab8c213106cf1c5f4b6e';
+				case APEX_ITEMS.PHOENIX_KIT: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/7/7b/Phoenix_Kit.svg?version=89a9a183a0db308beb13ab438ca62e1d';
+				case APEX_ITEMS.MED_KIT: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/d/d3/Medkit.svg?version=21cb266bacb1458169c3f0f65e023256';
+				case APEX_ITEMS.SYRINGE: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/7/75/Syringe.svg?version=81b223aafdd8cc7226f48b4bcbb3c186';
+				case APEX_ITEMS.SHIELD_BATTERY: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/d/de/Shield_Battery.svg?version=b305b2ef32f04524d313c3490ff0e07e';
+				case APEX_ITEMS.SHIELD_CELL: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/4/4a/Shield_Cell.svg?version=b31c210d33027e2ad11b32959c6b62b8';
+
+				case APEX_ITEMS.HELMET_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/e/e8/Helmet.svg?version=bda6c6aa84dda6fc6bdf60f3a832496e';
+				case APEX_ITEMS.HELMET_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/e/e8/Helmet.svg?version=bda6c6aa84dda6fc6bdf60f3a832496e';
+				case APEX_ITEMS.HELMET_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/e/e8/Helmet.svg?version=bda6c6aa84dda6fc6bdf60f3a832496e';
+				case APEX_ITEMS.HELMET_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/e/e8/Helmet.svg?version=bda6c6aa84dda6fc6bdf60f3a832496e';
+				case APEX_ITEMS.BODY_ARMOR_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
+				case APEX_ITEMS.BODY_ARMOR_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
+				case APEX_ITEMS.BODY_ARMOR_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
+				case APEX_ITEMS.BODY_ARMOR_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
+				case APEX_ITEMS.EVO_ARMOR_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
+				case APEX_ITEMS.EVO_ARMOR_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
+				case APEX_ITEMS.EVO_ARMOR_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
+				case APEX_ITEMS.EVO_ARMOR_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
+				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/3/34/Knockdown_Shield.svg?version=ad80680b065e870c67ba38e5945c702c';
+				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/3/34/Knockdown_Shield.svg?version=ad80680b065e870c67ba38e5945c702c';
+				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/3/34/Knockdown_Shield.svg?version=ad80680b065e870c67ba38e5945c702c';
+				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/3/34/Knockdown_Shield.svg?version=ad80680b065e870c67ba38e5945c702c';
+				case APEX_ITEMS.BACKPACK_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/26/Backpack_lvl1.svg?version=bd7234e811250e3c5d7956da2a18389f';
+				case APEX_ITEMS.BACKPACK_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/b/bc/Backpack_lvl2.svg?version=b3810f10abf47b3b7c59a37ce36c7227';
+				case APEX_ITEMS.BACKPACK_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/8/8f/Backpack_lvl3.svg?version=22ef37fd8cbefae2bfc905a66dc53d86';
+				case APEX_ITEMS.BACKPACK_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/8/8f/Backpack_lvl3.svg?version=22ef37fd8cbefae2bfc905a66dc53d86';
+
+				case APEX_ITEMS.THERMITE_GRENADE: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/a/ae/Thermite_Grenade.svg?version=6d23ae5a4341afe09968b416e750c4bf';
+				case APEX_ITEMS.FRAG_GRENADE: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/c6/Frag_Grenade.svg?version=93e085163284cf7956f3d52eeb7e2845';
+				case APEX_ITEMS.ARC_STAR: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/d/d8/Arc_Star.svg?version=f057e28435c241c969ae20d7096d49b7';
+
+				case APEX_ITEMS.HCOG_CLASSIC: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/9a/1x_HCOG_Classic.svg?version=ab723c377f5f8ec8c203e4e468ef7985';
+				case APEX_ITEMS.HCOG_BRUISER: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/f/f3/2x_HCOG_Bruiser.svg?version=3da2fe94523d3e13fc12dacf94c6081f';
+				case APEX_ITEMS.HOLO: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/e/e5/1x_Holo.svg?version=b88b85591a40e88917de3516a1615f33';
+				case APEX_ITEMS.VARIABLE_HOLO: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/5/5b/1x-2x_Variable_Holo.svg?version=3cb35921da152948d03b9cd9f325fd68';
+				case APEX_ITEMS.DIGITAL_THREAT: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/4/42/1x_Digital_Threat.svg?version=245bb7091b71cf956a4f5f7d00c41d6d';
+				case APEX_ITEMS.HCOG_RANGER: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/8/8a/3x_HCOG_Ranger.svg?version=384801b2a532db136ade975b519c9510';
+				case APEX_ITEMS.VARIABLE_AOG: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/2f/2x-4x_Variable_AOG.svg?version=588eef11d4b1843d4e26e3a52d4ce898';
+				case APEX_ITEMS.SNIPER: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/3/3f/6x_Sniper.svg?version=4b0ec37d31300a6dbf269bfc26980c15';
+				case APEX_ITEMS.VARIABLE_SNIPER: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/d/dc/4x-8x_Variable_Sniper.svg?version=6ef2ffd4185a2b77a0b24d0071c00d03';
+				case APEX_ITEMS.DIGITAL_SNIPER_THREAT: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/f/f8/4x-10x_Digital_Sniper_Threat.svg?version=f1bcd0a4467dbd519a8657fc52d930e4';
+
+				case APEX_ITEMS.BARREL_STABILIZER_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/99/Barrel_Stabilizer.svg?version=db6460847e7fac0208aeb2d64e2bcc56';
+				case APEX_ITEMS.BARREL_STABILIZER_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/99/Barrel_Stabilizer.svg?version=db6460847e7fac0208aeb2d64e2bcc56';
+				case APEX_ITEMS.BARREL_STABILIZER_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/99/Barrel_Stabilizer.svg?version=db6460847e7fac0208aeb2d64e2bcc56';
+				case APEX_ITEMS.BARREL_STABILIZER_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/b/ba/Barrel_Stabilizer_lvl4.svg?version=44d8ed563da9501b50cf721bddb9b59f';
+				case APEX_ITEMS.LIGHT_MAGAZINE_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/8/85/Extended_Light_Mag.svg?version=5ecf3b445f2a6e456488ead829c52825';
+				case APEX_ITEMS.LIGHT_MAGAZINE_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/8/85/Extended_Light_Mag.svg?version=5ecf3b445f2a6e456488ead829c52825';
+				case APEX_ITEMS.LIGHT_MAGAZINE_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/8/85/Extended_Light_Mag.svg?version=5ecf3b445f2a6e456488ead829c52825';
+				case APEX_ITEMS.LIGHT_MAGAZINE_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/8/85/Extended_Light_Mag.svg?version=5ecf3b445f2a6e456488ead829c52825';
+				case APEX_ITEMS.HEAVY_MAGAZINE_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/9b/Extended_Heavy_Mag.svg?version=638867e063a508db86a48a03142e20dd';
+				case APEX_ITEMS.HEAVY_MAGAZINE_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/9b/Extended_Heavy_Mag.svg?version=638867e063a508db86a48a03142e20dd';
+				case APEX_ITEMS.HEAVY_MAGAZINE_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/9b/Extended_Heavy_Mag.svg?version=638867e063a508db86a48a03142e20dd';
+				case APEX_ITEMS.HEAVY_MAGAZINE_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/9b/Extended_Heavy_Mag.svg?version=638867e063a508db86a48a03142e20dd';
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=2b31a07cffcf4a6b277923af7e6bfe8b';
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=2b31a07cffcf4a6b277923af7e6bfe8b';
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=2b31a07cffcf4a6b277923af7e6bfe8b';
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=2b31a07cffcf4a6b277923af7e6bfe8b';
+				case APEX_ITEMS.SNIPER_MAGAZINE_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=e8f41174d8b4dcd715818c516262b6fa';
+				case APEX_ITEMS.SNIPER_MAGAZINE_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=e8f41174d8b4dcd715818c516262b6fa';
+				case APEX_ITEMS.SNIPER_MAGAZINE_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=e8f41174d8b4dcd715818c516262b6fa';
+				case APEX_ITEMS.SNIPER_MAGAZINE_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=e8f41174d8b4dcd715818c516262b6fa';
+				case APEX_ITEMS.SHOTGUN_BOLT_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/b/ba/Shotgun_Bolt.svg?version=2dc6778ff0833154873ecf16ba3cac8c';
+				case APEX_ITEMS.SHOTGUN_BOLT_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/b/ba/Shotgun_Bolt.svg?version=2dc6778ff0833154873ecf16ba3cac8c';
+				case APEX_ITEMS.SHOTGUN_BOLT_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/b/ba/Shotgun_Bolt.svg?version=2dc6778ff0833154873ecf16ba3cac8c';
+				case APEX_ITEMS.STANDARD_STOCK_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/c2/Standard_Stock.svg?version=959ea0351bf14ee9e0e864e839fa42f7';
+				case APEX_ITEMS.STANDARD_STOCK_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/c2/Standard_Stock.svg?version=959ea0351bf14ee9e0e864e839fa42f7';
+				case APEX_ITEMS.STANDARD_STOCK_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/c2/Standard_Stock.svg?version=959ea0351bf14ee9e0e864e839fa42f7';
+				case APEX_ITEMS.SNIPER_STOCK_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/0/09/Sniper_Stock.svg?version=7a70f08f7f3e6b97d58306430d0f1263';
+				case APEX_ITEMS.SNIPER_STOCK_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/0/09/Sniper_Stock.svg?version=7a70f08f7f3e6b97d58306430d0f1263';
+				case APEX_ITEMS.SNIPER_STOCK_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/0/09/Sniper_Stock.svg?version=7a70f08f7f3e6b97d58306430d0f1263';
+
+				// case APEX_ITEMS.SELECTFIRE_RECEIVER: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/7/72/Selectfire_Receiver.svg?version=155f8c34324f67df4fb32c7fedafdccc';
+				// case APEX_ITEMS.PRECISION_CHOKE: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/b/b4/Precision_Choke.svg?version=c9c72c08b6ebd9335bbaa75d02b93ddb';
+				// case APEX_ITEMS.HAMMERPOINT_ROUNDS: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/d/d4/Hammerpoint_Rounds.svg?version=2a64cdceffe6c28787f6f50929d9d350';
+				// case APEX_ITEMS.SKULLPIERCER_RIFLING: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/ce/Skullpiercer_Rifling.svg?version=3c45ac7e2dee0f4f9e5bbb18ff5ef96d';
+				// case APEX_ITEMS.DOUBLE_TAP_TRIGGER: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/9b/Double_Tap_Trigger.svg?version=351da015b0d06624c9b3ae5e2d790727';
+				// case APEX_ITEMS.VAULT_KEY: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/5/59/Vault_Key.svg?version=de07ef3a8227114372dc80fe4ac36c6d';
+
+				default: return null;
+			}
+		},
+	},
+	template: '#apex-loot-icon',
+});
+</script>
+<script>
+"use strict"
+
+Vue.component('apex-loot', {
+	data: function() {
+		return {};
+	},
+	props: {
+		state: Object,
+		entity: Object,
+		local: Object,
+	},
+	computed: {
+		relevant: function() {
+			// Only show this loot if it is desired by the local player
+			let localPlayer = this.local;
+			if (!localPlayer)
+				return false;
+			if (localPlayer.desired_items[this.entity.custom_script_int] == "1")
+				return true;
+			let primaryWeapon = this.state.entity_list.lookup[localPlayer.primary_weapon];
+			if (primaryWeapon && primaryWeapon.desired_items[this.entity.custom_script_int] == "1")
+				return true;
+			let secondaryWeapon = this.state.entity_list.lookup[localPlayer.secondary_weapon];
+			if (secondaryWeapon && secondaryWeapon.desired_items[this.entity.custom_script_int] == "1")
+				return true;
+			return false;
+		},
+	},
+	template: '#apex-loot',
+});
+</script>
+<script>
+"use strict"
+
+Vue.component('apex-player', {
+	data: function() {
+		return {};
+	},
+	props: {
+		state: Object,
+		entity: Object,
+		local: Object,
+		camera: CameraStore,
+	},
+	computed: {
+		playerName: function() {
+			return this.state.name_list[(this.entity.index - 1) * 2] || "";
+		},
+		followMe: function() {
+			return this.entity == this.local;
+		},
+		color: function() {
+			if (this.followMe) {
+				return 'white';
+			}
+			let rgb = this.entity.team_color;
+			return `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+		},
+		armorText: function() {
+			// return "" + this.entity.armor_type;
+			return this.entity.armor_type > 0 ? "" + this.entity.armor_type : null;
+		},
+		iconStyle: function() {
+			let yaw = this.state.client.local_entity == this.entity.index ? -this.entity.camera_angles[1] : -this.entity.angles[1];
+			return {
+				'transform': 'rotate(' + yaw + 'deg)',
+				'stroke-width': this.followMe ? '0.1' : '0.05',
+			};
+		},
+		playerStyle: function() {
+			return {
+				'display': this.entity.life_state == 0 ? 'block' : 'none',
+				'opacity': this.entity.bleedout_state == 0 ? '1.0' : '0.4',
+				'transform': this.followMe ? 'scale(1.1)' : 'scale(1.0)',
+			};
+		},
+	},
+	template: '#apex-player',
+});
+</script>
+<script>
+"use strict"
+
+const APEX_RADAR_MATH = {
+	'mp_rr_desertlands_64k_x_64k': Object.freeze(new RadarMath(
+		[-26123.729, 22965.105, 236, 352],
+		[22860.855, -36154.566, 1018, 1297],
+		'img/apex/mp_rr_desertlands_64k_x_64k.png', 1350, 1440)),
+	'mp_rr_desertlands_64k_x_64k_tt': Object.freeze(new RadarMath(
+		[-26123.729, 22965.105, 236, 352],
+		[22860.855, -36154.566, 1018, 1297],
+		'img/apex/mp_rr_desertlands_64k_x_64k.png', 1350, 1440)),
+	'mp_rr_desertlands_mu1': Object.freeze(new RadarMath(
+		[-26123.729, 22965.105, 236, 352],
+		[22860.855, -36154.566, 1018, 1297],
+		'img/apex/mp_rr_desertlands_64k_x_64k.png', 1350, 1440)),
+	'mp_rr_desertlands_mu2': Object.freeze(new RadarMath(
+		[-26123.729, 22965.105, 433, 502],
+		[22860.855, -36154.566, 1539, 1844],
+		'img/apex/mp_rr_desertlands_mu2.webp', 2048, 2048)),
+	'mp_rr_desertlands_mu3': Object.freeze(new RadarMath(
+		[-26123.729, 22965.105, 433, 502],
+		[22860.855, -36154.566, 1539, 1844],
+		'img/apex/mp_rr_desertlands_mu3.webp', 2048, 2048)),
+	'mp_rr_desertlands_mu4': Object.freeze(new RadarMath(
+		[-26123.729, 22965.105, 433, 502],
+		[22860.855, -36154.566, 1539, 1844],
+		'img/apex/mp_rr_desertlands_mu3.webp', 2048, 2048)),
+	'mp_rr_canyonlands_staging': Object.freeze(new RadarMath(
+		[-9486.065, 26580.008, 816, 463],
+		[28832.563, -27961.234, 2075, 2254],
+		'img/apex/mp_rr_canyonlands_staging.jpg', 2483, 2483)),
+		'mp_rr_canyonlands_mu1_night': Object.freeze(new RadarMath(
+		[-9486.065, 26580.008, 816, 463],
+		[28832.563, -27961.234, 2075, 2254],
+	'img/apex/mp_rr_canyonlands_staging.jpg', 2483, 2483)),
+		'mp_rr_canyonlands_mu1': Object.freeze(new RadarMath(
+		[-9486.065, 26580.008, 816, 463],
+		[28832.563, -27961.234, 2075, 2254],
+		'img/apex/mp_rr_canyonlands_staging.jpg', 2483, 2483)),
+	'mp_rr_canyonlands_64k_x_64k': Object.freeze(new RadarMath(
+		[-9486.065, 26580.008, 816, 463],
+		[28832.563, -27961.234, 2075, 2254],
+		'img/apex/mp_rr_canyonlands_staging.jpg', 2483, 2483)),
+	'mp_rr_canyonlands_mu2': Object.freeze(new RadarMath(
+		[-9486.065, 26580.008, 816, 463],
+		[28832.563, -27961.234, 2075, 2254],
+		'img/apex/mp_rr_canyonlands_staging.jpg', 2483, 2483)),
+	'mp_rr_canyonlands_hu': Object.freeze(new RadarMath(
+		[-9486.065, 26580.008, 816, 463],
+		[28832.563, -27961.234, 2075, 2254],
+		'img/apex/mp_rr_canyonlands_staging.jpg', 2483, 2483)),
+	'mp_rr_canyonlands_mu3': Object.freeze(new RadarMath(
+		[-27502.287, 24504.262, 246, 487],
+		[25764.455, -24487.516, 1583, 1707],
+		'img/apex/mp_rr_canyonlands_mu3.webp', 2048, 2008)),
+	'mp_rr_olympus': Object.freeze(new RadarMath(
+		[-20723.979, 33996.98, 711, 319],
+		[25053.246, -22165.426, 1751, 1595],
+		'img/apex/mp_rr_olympus.webp', 2048, 2048)),
+	'mp_rr_olympus_mu2': Object.freeze(new RadarMath(
+		[-20723.979, 33996.98, 711 * 2.078125, 319 * 2.078125],
+		[25053.246, -22165.426, 1751 * 2.078125, 1595 * 2.078125],
+		'img/apex/mp_rr_olympus_mu2.png', 4256, 4256)),
+	'mp_rr_tropic_island_mu1': Object.freeze(new RadarMath(
+		[44519.77, 27817.998, 941, 239],
+		[-37277.574, -22472.045, 134, 741],
+		'img/apex/mp_stormpoint.png', 1014, 1014)),
+	// 'mp_rr_tropic_island_mu2': Object.freeze(new RadarMath(
+	// 	[44519.77, 27817.998, 941, 239],
+	// 	[-37277.574, -22472.045, 134, 741],
+	// 	'img/apex/mp_stormpoint.png', 1014, 1007)),
+	'mp_rr_divided_moon': Object.freeze(new RadarMath(
+		[28228.582, 31701.05, 1757, 283],
+		[-29679.441, -25812.479, 367, 1662],
+		'img/apex/Broken_Moon.webp', 2048, 2048)),
+};
+
+Vue.component('apex-radar', {
+	data: function() {
+		return {};
+	},
+	props: {
+		state: Object,
+		other: Object,
+		camera: CameraStore,
+		apexrings: Array,
+	},
+	computed: {
+		radarMath: function() {
+			if (this.state == null) {
+				return null;
+			}
+			return APEX_RADAR_MATH[this.state.client.level_name];
+		},
+		entities: function() {
+			if (this.state == null) {
+				return [];
+			}
+			return this.state.entity_list.lookup;
+		},
+		worldEntity: function() {
+			return this.entities[0];
+		},
+		worldStyle: function() {
+			let world = this.worldEntity;
+			if (!world || !world.death_field_is_active || world.death_field_time_start == world.death_field_time_end) {
+				return {
+					display: 'none',
+				};
+			}
+			let fraction = Math.max(Math.min((this.state.client.curtime - world.death_field_time_start) / (world.death_field_time_end - world.death_field_time_start), 1.0), 0.0);
+			let radius = world.death_field_radius_start + fraction * (world.death_field_radius_end - world.death_field_radius_start);
+			let [x, y, r] = this.radarMath.circleToPixel(world.death_field_origin, radius);
+			let zoom = this.camera.zoom;
+			return {
+				overflow: 'visible',
+				left: (x - r) * zoom + 'px',
+				top: (y - r) * zoom + 'px',
+				width: r * 2 * zoom + 'px',
+				height: r * 2 * zoom + 'px',
+			};
+		},
+		lootEntities: function() {
+			if (this.state == null) {
+				return [];
+			}
+			return this.state.entity_list.entities.filter(value => value.class_name == 'PropSurvival');
+		},
+		playerEntities: function() {
+			if (this.state == null) {
+				return [];
+			}
+			return this.state.entity_list.entities.filter(value => value.class_name == 'Player');
+		},
+		cameraPlayer: function() {
+			if (this.state == null) {
+				return null;
+			}
+			let player = null;
+			// Try to find the player to follow by their name.
+			if (this.camera.follow) {
+				let index = this.state.name_list.indexOf(this.camera.follow);
+				if (index >= 0) {
+					player = this.entities[index / 2 + 1];
+				}
+			}
+			// Fall back to the local player if no follow name is specified.
+			if (player == null) {
+				player = this.entities[this.state.client.local_entity];
+			}
+			// If the playing being followed is dead, follow whomever they are spectating.
+			if (player && player.life_state != 0 && player.observer_target > 0) {
+				player = this.entities[player.observer_target];
+			}
+			return player;
+		},
+		cameraTranslate: function() {
+			let player = this.cameraPlayer;
+			if (!player || !this.$refs.canvas) {
+				return 'translate(0,0)';
+			}
+			let [px, py] = this.radarMath.toPixel(player.origin);
+			let zoom = this.camera.zoom;
+			let bounds = this.$refs.canvas.getBoundingClientRect();
+			let tx = -px * zoom + bounds.width / 2;
+			let ty = -py * zoom + bounds.height / 2;
+			return 'translate(' + tx + 'px,' + ty + 'px)';
+		},
+		cameraScale: function() {
+			return 'scale(' + this.camera.zoom + ')';
+		},
+	},
+	methods: {
+		entityTranslate: function(origin) {
+			let [px, py] = this.radarMath.toPixel(origin);
+			let zoom = this.camera.zoom;
+			return 'translate(' + px * zoom + 'px,' + py * zoom + 'px)';
+		},
+		ringStyle: function(ring) {
+			let [x, y, r] = this.radarMath.circleToPixel(ring.origin, ring.radius);
+			let zoom = this.camera.zoom;
+			return {
+				overflow: 'visible',
+				left: (x - r) * zoom + 'px',
+				top: (y - r) * zoom + 'px',
+				width: r * 2 * zoom + 'px',
+				height: r * 2 * zoom + 'px',
+			};
+		},
+	},
+	template: '#apex-radar',
+});
+</script>
+<script>
+"use strict"
+
+Vue.component('mw-player', {
+	data: function() {
+		return {};
+	},
+	props: {
+		entity: Object,
+		cameraEntity: Object,
+	},
+	methods: {
+		selectPlayer: function() {
+			this.$emit('select-player', this.entity.index);
+		},
+	},
+	computed: {
+		iconStyle: function() {
+			let yaw = this.entity.angles[1];
+			return {
+				'transform': 'rotate(' + (-yaw + 90.0).toString() + 'deg)',
+			};
+		},
+		isLocal: function() {
+			return this.cameraEntity == this.entity;
+		},
+		strokeColor: function() {
+			return this.isLocal ? "green" : this.entity.friend ? "blue" : "white";
+		},
+		X: function() {
+			return this.entity.origin[0];
+		},
+		Y: function() {
+			return this.entity.origin[1];
+		},
+		elevation: function() {
+			let cameraEntity = this.cameraEntity;
+			if (!cameraEntity) {
+				return 0;
+			}
+			return (this.entity.origin[2] - this.cameraEntity.origin[2]) / 100.0;
+		},
+	},
+	template: '#mw-player',
+});
+</script>
+<script>
+"use strict"
+
+Vue.component('mw-radar', {
+	data: function() {
+		return {
+			cameraIndex: null,
+		};
+	},
+	props: {
+		state: Object,
+		camera: CameraStore,
+	},
+	computed: {
+		entities: function() {
+			if (this.state == null) {
+				return [];
+			}
+			return this.state.entities_data.list;
+		},
+		playerEntities: function() {
+			return this.entities.filter(entity => entity.valid && entity.type == 1);
+		},
+		cameraEntity: function() {
+			if (this.state == null) {
+				return null;
+			}
+			let index = this.cameraIndex == null ? this.state.entities_data.local_index : this.cameraIndex;
+			let entity = this.entities[index];
+			if (this.state.entities_data.local_index == entity.index) {
+				entity.origin = this.state.cg.origin;
+			}
+			return entity;
+		},
+	},
+	methods: {
+		entityTranslate: function(origin) {
+			let cameraEntity = this.cameraEntity;
+			let local = cameraEntity ? cameraEntity.origin : this.state.cg.origin;
+			let zoom = 0.05 / this.camera.zoom;
+			let x = origin[1] - local[1];
+			let y = origin[0] - local[0];
+
+			let canvas = document.getElementById('mw-canvas-ref');
+			//let bounds = this.$refs.canvas.getBoundingClientRect();
+			if (!canvas) {
+				return 'translate(0,0)';
+			}
+			let bounds = canvas.getBoundingClientRect();
+			let tx = x * zoom + bounds.width / 2;
+			let ty = y * zoom + bounds.height / 2;
+			return 'translate(' + tx + 'px,' + ty + 'px)';
+		},
+		selectPlayer: function(playerIndex) {
+			this.cameraIndex = this.cameraIndex === playerIndex ? null : playerIndex;
+		},
+	},
+	template: '#mw-radar',
+});
+</script>
+<script>
+var app = new Vue({
+	data: {},
+	el: '#app-container',
+});
+</script>
+</html>
+
