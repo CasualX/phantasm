@@ -7,6 +7,14 @@ const APEX_RADAR_MATH = {
 		[-26123.729, 22965.105, 236, 352],
 		[22860.855, -36154.566, 1018, 1297],
 		'img/apex/mp_rr_desertlands_64k_x_64k.png', 1350, 1440)),
+	'mp_rr_desertlands_64k_x_64k_tt': Object.freeze(new RadarMath(
+		[-26123.729, 22965.105, 236, 352],
+		[22860.855, -36154.566, 1018, 1297],
+		'img/apex/mp_rr_desertlands_64k_x_64k.png', 1350, 1440)),
+	'mp_rr_desertlands_mu1': Object.freeze(new RadarMath(
+		[-26123.729, 22965.105, 236, 352],
+		[22860.855, -36154.566, 1018, 1297],
+		'img/apex/mp_rr_desertlands_64k_x_64k.png', 1350, 1440)),
 	'mp_rr_canyonlands_staging': Object.freeze(new RadarMath(
 		[-9486.065, 26580.008, 816, 463],
 		[28832.563, -27961.234, 2075, 2254],
