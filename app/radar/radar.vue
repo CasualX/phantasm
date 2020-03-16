@@ -16,6 +16,8 @@ Vue.component('app-radar', {
 			switch (this.socket.game) {
 				case 'apex':
 					return 'apex-radar';
+				case 'mw':
+					return 'mw-radar';
 				default:
 					return null;
 			}

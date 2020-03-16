@@ -106,11 +106,13 @@ class WebSocketStore {
 	}
 	updateGame(state) {
 		if (!this.paused) {
-			let lookup = [];
-			for (let entity of state.entity_list.entities) {
-				lookup[entity.entity_index] = entity;
+			if (this.game == "apex") {
+				let lookup = [];
+				for (let entity of state.entity_list.entities) {
+					lookup[entity.index] = entity;
+				}
+				state.entity_list.lookup = lookup;
 			}
-			state.entity_list.lookup = lookup;
 			this.state = window.state = Object.freeze(state);
 		}
 		// Queue a new state request as soon as we receive one!

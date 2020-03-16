@@ -19,7 +19,15 @@ const APEX_RADAR_MATH = {
 		[-9486.065, 26580.008, 816, 463],
 		[28832.563, -27961.234, 2075, 2254],
 		'img/apex/mp_rr_canyonlands_staging.jpg', 2483, 2483)),
-	'mp_rr_canyonlands_mu1_night': Object.freeze(new RadarMath(
+		'mp_rr_canyonlands_mu1_night': Object.freeze(new RadarMath(
+		[-9486.065, 26580.008, 816, 463],
+		[28832.563, -27961.234, 2075, 2254],
+	'img/apex/mp_rr_canyonlands_staging.jpg', 2483, 2483)),
+		'mp_rr_canyonlands_mu1': Object.freeze(new RadarMath(
+		[-9486.065, 26580.008, 816, 463],
+		[28832.563, -27961.234, 2075, 2254],
+		'img/apex/mp_rr_canyonlands_staging.jpg', 2483, 2483)),
+	'mp_rr_canyonlands_64k_x_64k': Object.freeze(new RadarMath(
 		[-9486.065, 26580.008, 816, 463],
 		[28832.563, -27961.234, 2075, 2254],
 		'img/apex/mp_rr_canyonlands_staging.jpg', 2483, 2483)),

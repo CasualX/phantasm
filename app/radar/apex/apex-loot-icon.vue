@@ -61,59 +61,63 @@ const APEX_ITEMS = Object.freeze({
 	BODY_ARMOR_LV2: 56,
 	BODY_ARMOR_LV3: 57,
 	BODY_ARMOR_LV4: 58,
-	KNOCKDOWN_SHIELD_LV1: 59,
-	KNOCKDOWN_SHIELD_LV2: 60,
-	KNOCKDOWN_SHIELD_LV3: 61,
-	KNOCKDOWN_SHIELD_LV4: 62,
-	BACKPACK_LV1: 63,
-	BACKPACK_LV2: 64,
-	BACKPACK_LV3: 65,
-	BACKPACK_LV4: 66,
+	EVO_ARMOR_LV1: 59,
+	EVO_ARMOR_LV2: 60,
+	EVO_ARMOR_LV3: 61,
+	EVO_ARMOR_LV4: 62,
+	KNOCKDOWN_SHIELD_LV1: 63,
+	KNOCKDOWN_SHIELD_LV2: 64,
+	KNOCKDOWN_SHIELD_LV3: 65,
+	KNOCKDOWN_SHIELD_LV4: 66,
+	BACKPACK_LV1: 67,
+	BACKPACK_LV2: 68,
+	BACKPACK_LV3: 69,
+	BACKPACK_LV4: 70,
 
-	THERMITE_GRENADE: 67,
-	FRAG_GRENADE: 68,
-	ARC_STAR: 69,
+	THERMITE_GRENADE: 71,
+	FRAG_GRENADE: 72,
+	ARC_STAR: 73,
 
-	HCOG_CLASSIC: 70,
-	HCOG_BRUISER: 71,
-	HOLO: 72,
-	VARIABLE_HOLO: 73,
-	DIGITAL_THREAT: 74,
-	HCOG_RANGER: 75,
-	VARIABLE_AOG: 76,
-	SNIPER: 77,
-	VARIABLE_SNIPER: 78,
-	DIGITAL_SNIPER_THREAT: 79,
+	HCOG_CLASSIC: 74,
+	HCOG_BRUISER: 75,
+	HOLO: 76,
+	VARIABLE_HOLO: 77,
+	DIGITAL_THREAT: 78,
+	HCOG_RANGER: 79,
+	VARIABLE_AOG: 80,
+	SNIPER: 81,
+	VARIABLE_SNIPER: 82,
+	DIGITAL_SNIPER_THREAT: 83,
 
-	BARREL_STABILIZER_LV1: 80,
-	BARREL_STABILIZER_LV2: 81,
-	BARREL_STABILIZER_LV3: 82,
-	BARREL_STABILIZER_LV4: 83,
-	LIGHT_MAGAZINE_LV1: 84,
-	LIGHT_MAGAZINE_LV2: 85,
-	LIGHT_MAGAZINE_LV3: 86,
-	HEAVY_MAGAZINE_LV1: 87,
-	HEAVY_MAGAZINE_LV2: 88,
-	HEAVY_MAGAZINE_LV3: 89,
-	SNIPER_MAGAZINE_LV1: 90,
-	SNIPER_MAGAZINE_LV2: 91,
-	SNIPER_MAGAZINE_LV3: 92,
-	SHOTGUN_BOLT_LV1: 93,
-	SHOTGUN_BOLT_LV2: 94,
-	SHOTGUN_BOLT_LV3: 95,
-	STANDARD_STOCK_LV1: 96,
-	STANDARD_STOCK_LV2: 97,
-	STANDARD_STOCK_LV3: 98,
-	SNIPER_STOCK_LV1: 99,
-	SNIPER_STOCK_LV2: 100,
-	SNIPER_STOCK_LV3: 101,
+	BARREL_STABILIZER_LV1: 84,
+	BARREL_STABILIZER_LV2: 85,
+	BARREL_STABILIZER_LV3: 86,
+	BARREL_STABILIZER_LV4: 87,
+	LIGHT_MAGAZINE_LV1: 88,
+	LIGHT_MAGAZINE_LV2: 89,
+	LIGHT_MAGAZINE_LV3: 90,
+	HEAVY_MAGAZINE_LV1: 91,
+	HEAVY_MAGAZINE_LV2: 92,
+	HEAVY_MAGAZINE_LV3: 93,
+	SNIPER_MAGAZINE_LV1: 94,
+	SNIPER_MAGAZINE_LV2: 95,
+	SNIPER_MAGAZINE_LV3: 96,
+	SHOTGUN_BOLT_LV1: 97,
+	SHOTGUN_BOLT_LV2: 98,
+	SHOTGUN_BOLT_LV3: 99,
+	STANDARD_STOCK_LV1: 100,
+	STANDARD_STOCK_LV2: 101,
+	STANDARD_STOCK_LV3: 102,
+	SNIPER_STOCK_LV1: 103,
+	SNIPER_STOCK_LV2: 104,
+	SNIPER_STOCK_LV3: 105,
 
-	SELECTFIRE_RECEIVER: 102,
-	PRECISION_CHOKE: 103,
-	HAMMERPOINT_ROUNDS: 104,
-	ANVIL_RECEIVER: 105,
-	DOUBLE_TAP_TRIGGER: 106,
-	VAULT_KEY: 107,
+	SELECTFIRE_RECEIVER: 106,
+	PRECISION_CHOKE: 107,
+	HAMMERPOINT_ROUNDS: 108,
+	ANVIL_RECEIVER: 109,
+	DOUBLE_TAP_TRIGGER: 110,
+	VAULT_KEY: 111,
 });
 const APEX_ITEMS_LOOKUP = (function() {
 	let lookup = [];
@@ -138,21 +142,25 @@ Vue.component('apex-loot-icon', {
 			switch (this.id) {
 				case APEX_ITEMS.HELMET_LV1:
 				case APEX_ITEMS.BODY_ARMOR_LV1:
+				case APEX_ITEMS.EVO_ARMOR_LV1:
 				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV1:
 				case APEX_ITEMS.BACKPACK_LV1:
 					return 'common';
 				case APEX_ITEMS.HELMET_LV2:
 				case APEX_ITEMS.BODY_ARMOR_LV2:
+				case APEX_ITEMS.EVO_ARMOR_LV2:
 				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV2:
 				case APEX_ITEMS.BACKPACK_LV2:
 					return 'rare';
 				case APEX_ITEMS.HELMET_LV3:
 				case APEX_ITEMS.BODY_ARMOR_LV3:
+				case APEX_ITEMS.EVO_ARMOR_LV3:
 				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV3:
 				case APEX_ITEMS.BACKPACK_LV3:
 					return 'epic';
 				case APEX_ITEMS.HELMET_LV4:
 				case APEX_ITEMS.BODY_ARMOR_LV4:
+				case APEX_ITEMS.EVO_ARMOR_LV4:
 				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV4:
 				case APEX_ITEMS.BACKPACK_LV4:
 					return 'legendary';
@@ -247,6 +255,10 @@ Vue.component('apex-loot-icon', {
 				case APEX_ITEMS.BODY_ARMOR_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
 				case APEX_ITEMS.BODY_ARMOR_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
 				case APEX_ITEMS.BODY_ARMOR_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
+				case APEX_ITEMS.EVO_ARMOR_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
+				case APEX_ITEMS.EVO_ARMOR_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
+				case APEX_ITEMS.EVO_ARMOR_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
+				case APEX_ITEMS.EVO_ARMOR_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/cc/Body_Shield.svg?version=a6d68fb3e0d64d4b5adad9ed6341fcb9';
 				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/3/34/Knockdown_Shield.svg?version=ad80680b065e870c67ba38e5945c702c';
 				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/3/34/Knockdown_Shield.svg?version=ad80680b065e870c67ba38e5945c702c';
 				case APEX_ITEMS.KNOCKDOWN_SHIELD_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/3/34/Knockdown_Shield.svg?version=ad80680b065e870c67ba38e5945c702c';
