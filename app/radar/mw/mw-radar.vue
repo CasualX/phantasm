@@ -4,7 +4,9 @@
 
 Vue.component('mw-radar', {
 	data: function() {
-		return {};
+		return {
+			cameraIndex: null,
+		};
 	},
 	props: {
 		state: Object,
@@ -15,22 +17,28 @@ Vue.component('mw-radar', {
 			if (this.state == null) {
 				return [];
 			}
-			return this.state.entities.list;
+			return this.state.entities_data.list;
 		},
 		playerEntities: function() {
-			return this.entities.filter(entity => entity.type == 1);
+			return this.entities.filter(entity => entity.valid && entity.type == 1);
 		},
-		localIndex: function() {
+		cameraEntity: function() {
 			if (this.state == null) {
-				return -1;
+				return null;
 			}
-			return this.state.entities.local_index;
-		}
+			let index = this.cameraIndex == null ? this.state.entities_data.local_index : this.cameraIndex;
+			let entity = this.entities[index];
+			if (this.state.entities_data.local_index == entity.index) {
+				entity.origin = this.state.cg.origin;
+			}
+			return entity;
+		},
 	},
 	methods: {
 		entityTranslate: function(origin) {
-			let local = this.state.local_entity.position;
-			let zoom = 0.1 / this.camera.zoom;
+			let cameraEntity = this.cameraEntity;
+			let local = cameraEntity ? cameraEntity.origin : this.state.cg.origin;
+			let zoom = 0.05 / this.camera.zoom;
 			let x = origin[1] - local[1];
 			let y = origin[0] - local[0];
 
@@ -44,6 +52,9 @@ Vue.component('mw-radar', {
 			let ty = y * zoom + bounds.height / 2;
 			return 'translate(' + tx + 'px,' + ty + 'px)';
 		},
+		selectPlayer: function(playerIndex) {
+			this.cameraIndex = this.cameraIndex === playerIndex ? null : playerIndex;
+		},
 	},
 	template: '#mw-radar',
 });
@@ -52,7 +63,7 @@ Vue.component('mw-radar', {
 <template id="mw-radar">
 	<div class="mw-radar user-select--none" ref="canvas" id="mw-canvas-ref">
 		<div class="mw-radar__canvas">
-			<mw-player v-for="entity in playerEntities" :key="entity.index" :state="state" :entity="entity" :style="{ transform: entityTranslate(entity.origin) }" ></mw-player>
+			<mw-player v-for="entity in playerEntities" :key="entity.index" :entity="entity" :camera-entity="cameraEntity" @select-player="selectPlayer($event)" :style="{ transform: entityTranslate(entity.origin) }" ></mw-player>
 		</div>
 	</div>
 </template>

@@ -113,6 +113,13 @@ class WebSocketStore {
 				}
 				state.entity_list.lookup = lookup;
 			}
+			else if (this.game == "mw") {
+				let lookup = [];
+				for (let entity of state.entities_data.list) {
+					lookup[entity.index] = entity;
+				}
+				state.entities_data.lookup = lookup;
+			}
 			this.state = window.state = Object.freeze(state);
 		}
 		// Queue a new state request as soon as we receive one!
