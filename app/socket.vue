@@ -15,7 +15,7 @@ class WebSocketStore {
 		this.state = null;
 		this.role = null;
 		this.paused = false;
-		this.debugText = "";
+		this.debugText = {};
 	}
 	reset() {
 		if (this.socket) {
@@ -29,7 +29,7 @@ class WebSocketStore {
 		this.state = null;
 		this.role = null;
 		this.paused = false;
-		this.debugText = "";
+		this.debugText = {};
 	}
 	connect() {
 		this.error = null;
@@ -127,9 +127,9 @@ class WebSocketStore {
 			this.socket.send("net.state!");
 		}
 	}
-	debugWrite(content) {
+	debugWrite(message) {
 		if (!this.paused) {
-			this.debugText = "" + content;
+			Vue.set(this.debugText, message.scope, "" + message.content);
 		}
 	}
 };
