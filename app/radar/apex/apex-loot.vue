@@ -19,10 +19,11 @@ Vue.component('apex-loot', {
 				return false;
 			if (localPlayer.desired_items[this.entity.custom_script_int] == "1")
 				return true;
-			let localWeapon = this.state.entity_list.lookup[localPlayer.latest_primary_weapons[0]];
-			if (!localWeapon)
-				return false;
-			if (localWeapon.desired_items[this.entity.custom_script_int] == "1")
+			let primaryWeapon = this.state.entity_list.lookup[localPlayer.primary_weapon];
+			if (primaryWeapon && primaryWeapon.desired_items[this.entity.custom_script_int] == "1")
+				return true;
+			let secondaryWeapon = this.state.entity_list.lookup[localPlayer.secondary_weapon];
+			if (secondaryWeapon && secondaryWeapon.desired_items[this.entity.custom_script_int] == "1")
 				return true;
 			return false;
 		},

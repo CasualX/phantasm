@@ -42,7 +42,7 @@ Vue.component('app-radar', {
 			<label><button @click="fullscreen">Fullscreen</button></label>
 		</form>
 		<section ref="radar">
-			<component v-if="component" :is="component" :state="socket.state" :camera="camera"></component>
+			<component v-if="component" :is="component" :state="socket.state" :apexrings="socket.apexRings" :camera="camera"></component>
 			<div v-else>
 				<template v-if="socket.game">
 					<p>Now playing {{ socket.game }}.</p>

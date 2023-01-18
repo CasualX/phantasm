@@ -3,121 +3,89 @@
 "use strict"
 
 const APEX_ITEMS = Object.freeze({
-	GOLD_KRABER: 1,
-	GOLD_MASTIFF: 2,
-	LSTAR: 3,
-	HAVOC: 4,
-	GOLD_HAVOC: 5,
-	DEVOTION: 6,
-	TRIPLE_TAKE: 7,
-	GOLD_TRIPLE_TAKE: 8,
-	FLATLINE: 9,
-	GOLD_FLATLINE: 10,
-	HEMLOCK: 11,
-	G7_SCOUT: 12,
-	GOLD_G7_SCOUT: 13,
-	ALTERNATOR: 14,
-	GOLD_ALTERNATOR: 15,
-	R99: 16,
-	PROWLER: 17,
-	GOLD_PROWLER: 18,
-	LONGBOW: 19,
-	GOLD_LONGBOW: 20,
-	CHARGE_RIFLE: 21,
-	GOLD_CHARGE_RIFLE: 22,
-	SPITFIRE: 23,
-	R301: 24,
-	EVA8_AUTO: 26,
-	GOLD_EVA8_AUTO: 27,
-	PEACEKEEPER: 28,
-	GOLD_PEACEKEEPER: 29,
-	MOZAMBIQUE: 30,
-	GOLD_MOZAMBIQUE: 31,
-	WINGMAN: 32,
-	GOLD_WINGMAN: 33,
-	P2020: 34,
-	GOLD_P2020: 35,
-	RE45: 36,
-	GOLD_RE45: 37,
+	LIGHT_ROUNDS: 121,
+	ENERGY_AMMO: 122,
+	SHOTGUN_SHELLS: 123,
+	HEAVY_ROUNDS: 124,
+	SNIPER_AMMO: 125,
 
-	LIGHT_ROUNDS: 40,
-	ENERGY_AMMO: 41,
-	SHOTGUN_SHELLS: 42,
-	HEAVY_ROUNDS: 43,
-	SNIPER_AMMO: 44,
+	ULTIMATE_ACCELERANT: 162,
+	PHOENIX_KIT: 163,
+	MED_KIT: 164,
+	SYRINGE: 165,
+	SHIELD_BATTERY: 166,
+	SHIELD_CELL: 167,
 
-	ULTIMATE_ACCELERANT: 45,
-	PHOENIX_KIT: 46,
-	MED_KIT: 47,
-	SYRINGE: 48,
-	SHIELD_BATTERY: 49,
-	SHIELD_CELL: 50,
+	HELMET_LV1: 168,
+	HELMET_LV2: 169,
+	HELMET_LV3: 170,
+	HELMET_LV4: 171,
+	BODY_ARMOR_LV1: 172,
+	BODY_ARMOR_LV2: 173,
+	BODY_ARMOR_LV3: 174,
+	BODY_ARMOR_LV4: 175,
+	EVO_ARMOR_LV0: 176,
+	EVO_ARMOR_LV1: 177,
+	EVO_ARMOR_LV2: 178,
+	EVO_ARMOR_LV3: 179,
+	EVO_ARMOR_LV4: 180,
+	KNOCKDOWN_SHIELD_LV1: 182,
+	KNOCKDOWN_SHIELD_LV2: 183,
+	KNOCKDOWN_SHIELD_LV3: 184,
+	KNOCKDOWN_SHIELD_LV4: 185,
+	BACKPACK_LV1: 186,
+	BACKPACK_LV2: 187,
+	BACKPACK_LV3: 188,
+	BACKPACK_LV4: 189,
 
-	HELMET_LV1: 51,
-	HELMET_LV2: 52,
-	HELMET_LV3: 53,
-	HELMET_LV4: 54,
-	BODY_ARMOR_LV1: 55,
-	BODY_ARMOR_LV2: 56,
-	BODY_ARMOR_LV3: 57,
-	BODY_ARMOR_LV4: 58,
-	EVO_ARMOR_LV1: 59,
-	EVO_ARMOR_LV2: 60,
-	EVO_ARMOR_LV3: 61,
-	EVO_ARMOR_LV4: 62,
-	KNOCKDOWN_SHIELD_LV1: 63,
-	KNOCKDOWN_SHIELD_LV2: 64,
-	KNOCKDOWN_SHIELD_LV3: 65,
-	KNOCKDOWN_SHIELD_LV4: 66,
-	BACKPACK_LV1: 67,
-	BACKPACK_LV2: 68,
-	BACKPACK_LV3: 69,
-	BACKPACK_LV4: 70,
+	THERMITE_GRENADE: 190,
+	FRAG_GRENADE: 191,
+	ARC_STAR: 192,
 
-	THERMITE_GRENADE: 71,
-	FRAG_GRENADE: 72,
-	ARC_STAR: 73,
+	HCOG_CLASSIC: 193,
+	HCOG_BRUISER: 194,
+	HOLO: 195,
+	VARIABLE_HOLO: 196,
+	DIGITAL_THREAT: 197,
+	HCOG_RANGER: 198,
+	VARIABLE_AOG: 199,
+	SNIPER: 200,
+	VARIABLE_SNIPER: 201,
+	DIGITAL_SNIPER_THREAT: 202,
 
-	HCOG_CLASSIC: 74,
-	HCOG_BRUISER: 75,
-	HOLO: 76,
-	VARIABLE_HOLO: 77,
-	DIGITAL_THREAT: 78,
-	HCOG_RANGER: 79,
-	VARIABLE_AOG: 80,
-	SNIPER: 81,
-	VARIABLE_SNIPER: 82,
-	DIGITAL_SNIPER_THREAT: 83,
+	BARREL_STABILIZER_LV1: 203,
+	BARREL_STABILIZER_LV2: 204,
+	BARREL_STABILIZER_LV3: 205,
+	BARREL_STABILIZER_LV4: 206,
+	LIGHT_MAGAZINE_LV1: 207,
+	LIGHT_MAGAZINE_LV2: 208,
+	LIGHT_MAGAZINE_LV3: 209,
+	LIGHT_MAGAZINE_LV4: 210,
+	HEAVY_MAGAZINE_LV1: 211,
+	HEAVY_MAGAZINE_LV2: 212,
+	HEAVY_MAGAZINE_LV3: 213,
+	HEAVY_MAGAZINE_LV4: 214,
+	ENERGY_MAGAZINE_LV1: 215,
+	ENERGY_MAGAZINE_LV2: 216,
+	ENERGY_MAGAZINE_LV3: 217,
+	ENERGY_MAGAZINE_LV4: 218,
+	SNIPER_MAGAZINE_LV1: 219,
+	SNIPER_MAGAZINE_LV2: 220,
+	SNIPER_MAGAZINE_LV3: 221,
+	SNIPER_MAGAZINE_LV4: 222,
+	SHOTGUN_BOLT_LV1: 223,
+	SHOTGUN_BOLT_LV2: 224,
+	SHOTGUN_BOLT_LV3: 225,
+	STANDARD_STOCK_LV1: 226,
+	STANDARD_STOCK_LV2: 227,
+	STANDARD_STOCK_LV3: 228,
+	SNIPER_STOCK_LV1: 229,
+	SNIPER_STOCK_LV2: 230,
+	SNIPER_STOCK_LV3: 231,
 
-	BARREL_STABILIZER_LV1: 84,
-	BARREL_STABILIZER_LV2: 85,
-	BARREL_STABILIZER_LV3: 86,
-	BARREL_STABILIZER_LV4: 87,
-	LIGHT_MAGAZINE_LV1: 88,
-	LIGHT_MAGAZINE_LV2: 89,
-	LIGHT_MAGAZINE_LV3: 90,
-	HEAVY_MAGAZINE_LV1: 91,
-	HEAVY_MAGAZINE_LV2: 92,
-	HEAVY_MAGAZINE_LV3: 93,
-	SNIPER_MAGAZINE_LV1: 94,
-	SNIPER_MAGAZINE_LV2: 95,
-	SNIPER_MAGAZINE_LV3: 96,
-	SHOTGUN_BOLT_LV1: 97,
-	SHOTGUN_BOLT_LV2: 98,
-	SHOTGUN_BOLT_LV3: 99,
-	STANDARD_STOCK_LV1: 100,
-	STANDARD_STOCK_LV2: 101,
-	STANDARD_STOCK_LV3: 102,
-	SNIPER_STOCK_LV1: 103,
-	SNIPER_STOCK_LV2: 104,
-	SNIPER_STOCK_LV3: 105,
-
-	SELECTFIRE_RECEIVER: 106,
-	PRECISION_CHOKE: 107,
-	HAMMERPOINT_ROUNDS: 108,
-	ANVIL_RECEIVER: 109,
-	DOUBLE_TAP_TRIGGER: 110,
-	VAULT_KEY: 111,
+	TURBOCHARGER: 232,
+	SKULLPIERCER_RIFLING: 233,
+	HAMMERPOINT_ROUNDS: 234,
 });
 const APEX_ITEMS_LOOKUP = (function() {
 	let lookup = [];
@@ -184,6 +152,7 @@ Vue.component('apex-loot-icon', {
 				case APEX_ITEMS.LIGHT_MAGAZINE_LV1:
 				case APEX_ITEMS.HEAVY_MAGAZINE_LV1:
 				case APEX_ITEMS.SNIPER_MAGAZINE_LV1:
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV1:
 				case APEX_ITEMS.SHOTGUN_BOLT_LV1:
 				case APEX_ITEMS.STANDARD_STOCK_LV1:
 				case APEX_ITEMS.SNIPER_STOCK_LV1:
@@ -192,6 +161,7 @@ Vue.component('apex-loot-icon', {
 				case APEX_ITEMS.LIGHT_MAGAZINE_LV2:
 				case APEX_ITEMS.HEAVY_MAGAZINE_LV2:
 				case APEX_ITEMS.SNIPER_MAGAZINE_LV2:
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV2:
 				case APEX_ITEMS.SHOTGUN_BOLT_LV2:
 				case APEX_ITEMS.STANDARD_STOCK_LV2:
 				case APEX_ITEMS.SNIPER_STOCK_LV2:
@@ -200,25 +170,22 @@ Vue.component('apex-loot-icon', {
 				case APEX_ITEMS.LIGHT_MAGAZINE_LV3:
 				case APEX_ITEMS.HEAVY_MAGAZINE_LV3:
 				case APEX_ITEMS.SNIPER_MAGAZINE_LV3:
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV3:
 				case APEX_ITEMS.SHOTGUN_BOLT_LV3:
 				case APEX_ITEMS.STANDARD_STOCK_LV3:
 				case APEX_ITEMS.SNIPER_STOCK_LV3:
 					return 'epic';
 				case APEX_ITEMS.BARREL_STABILIZER_LV4:
+				case APEX_ITEMS.LIGHT_MAGAZINE_LV4:
+				case APEX_ITEMS.HEAVY_MAGAZINE_LV4:
+				case APEX_ITEMS.SNIPER_MAGAZINE_LV4:
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV4:
 					return 'legendary'
 
-				case APEX_ITEMS.SELECTFIRE_RECEIVER:
-					return 'epic';
-				case APEX_ITEMS.PRECISION_CHOKE:
-					return 'epic';
 				case APEX_ITEMS.HAMMERPOINT_ROUNDS:
 					return 'epic';
-				case APEX_ITEMS.ANVIL_RECEIVER:
+				case APEX_ITEMS.SKULLPIERCER_RIFLING:
 					return 'legendary'
-				case APEX_ITEMS.DOUBLE_TAP_TRIGGER:
-					return 'epic';
-				case APEX_ITEMS.VAULT_KEY:
-					return 'special';
 
 				default:
 					return null;
@@ -290,12 +257,19 @@ Vue.component('apex-loot-icon', {
 				case APEX_ITEMS.LIGHT_MAGAZINE_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/8/85/Extended_Light_Mag.svg?version=5ecf3b445f2a6e456488ead829c52825';
 				case APEX_ITEMS.LIGHT_MAGAZINE_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/8/85/Extended_Light_Mag.svg?version=5ecf3b445f2a6e456488ead829c52825';
 				case APEX_ITEMS.LIGHT_MAGAZINE_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/8/85/Extended_Light_Mag.svg?version=5ecf3b445f2a6e456488ead829c52825';
+				case APEX_ITEMS.LIGHT_MAGAZINE_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/8/85/Extended_Light_Mag.svg?version=5ecf3b445f2a6e456488ead829c52825';
 				case APEX_ITEMS.HEAVY_MAGAZINE_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/9b/Extended_Heavy_Mag.svg?version=638867e063a508db86a48a03142e20dd';
 				case APEX_ITEMS.HEAVY_MAGAZINE_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/9b/Extended_Heavy_Mag.svg?version=638867e063a508db86a48a03142e20dd';
 				case APEX_ITEMS.HEAVY_MAGAZINE_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/9b/Extended_Heavy_Mag.svg?version=638867e063a508db86a48a03142e20dd';
+				case APEX_ITEMS.HEAVY_MAGAZINE_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/9b/Extended_Heavy_Mag.svg?version=638867e063a508db86a48a03142e20dd';
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=2b31a07cffcf4a6b277923af7e6bfe8b';
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=2b31a07cffcf4a6b277923af7e6bfe8b';
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=2b31a07cffcf4a6b277923af7e6bfe8b';
+				case APEX_ITEMS.ENERGY_MAGAZINE_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=2b31a07cffcf4a6b277923af7e6bfe8b';
 				case APEX_ITEMS.SNIPER_MAGAZINE_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=e8f41174d8b4dcd715818c516262b6fa';
 				case APEX_ITEMS.SNIPER_MAGAZINE_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=e8f41174d8b4dcd715818c516262b6fa';
 				case APEX_ITEMS.SNIPER_MAGAZINE_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=e8f41174d8b4dcd715818c516262b6fa';
+				case APEX_ITEMS.SNIPER_MAGAZINE_LV4: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/2/21/Extended_Energy_Mag.svg?version=e8f41174d8b4dcd715818c516262b6fa';
 				case APEX_ITEMS.SHOTGUN_BOLT_LV1: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/b/ba/Shotgun_Bolt.svg?version=2dc6778ff0833154873ecf16ba3cac8c';
 				case APEX_ITEMS.SHOTGUN_BOLT_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/b/ba/Shotgun_Bolt.svg?version=2dc6778ff0833154873ecf16ba3cac8c';
 				case APEX_ITEMS.SHOTGUN_BOLT_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/b/ba/Shotgun_Bolt.svg?version=2dc6778ff0833154873ecf16ba3cac8c';
@@ -306,12 +280,12 @@ Vue.component('apex-loot-icon', {
 				case APEX_ITEMS.SNIPER_STOCK_LV2: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/0/09/Sniper_Stock.svg?version=7a70f08f7f3e6b97d58306430d0f1263';
 				case APEX_ITEMS.SNIPER_STOCK_LV3: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/0/09/Sniper_Stock.svg?version=7a70f08f7f3e6b97d58306430d0f1263';
 
-				case APEX_ITEMS.SELECTFIRE_RECEIVER: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/7/72/Selectfire_Receiver.svg?version=155f8c34324f67df4fb32c7fedafdccc';
-				case APEX_ITEMS.PRECISION_CHOKE: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/b/b4/Precision_Choke.svg?version=c9c72c08b6ebd9335bbaa75d02b93ddb';
-				case APEX_ITEMS.HAMMERPOINT_ROUNDS: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/d/d4/Hammerpoint_Rounds.svg?version=2a64cdceffe6c28787f6f50929d9d350';
-				case APEX_ITEMS.ANVIL_RECEIVER: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/5/5d/Anvil_Receiver.svg?version=9a8f4067114a3a50a1beb9b6ad493722';
-				case APEX_ITEMS.DOUBLE_TAP_TRIGGER: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/9b/Double_Tap_Trigger.svg?version=351da015b0d06624c9b3ae5e2d790727';
-				case APEX_ITEMS.VAULT_KEY: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/5/59/Vault_Key.svg?version=de07ef3a8227114372dc80fe4ac36c6d';
+				// case APEX_ITEMS.SELECTFIRE_RECEIVER: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/7/72/Selectfire_Receiver.svg?version=155f8c34324f67df4fb32c7fedafdccc';
+				// case APEX_ITEMS.PRECISION_CHOKE: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/b/b4/Precision_Choke.svg?version=c9c72c08b6ebd9335bbaa75d02b93ddb';
+				// case APEX_ITEMS.HAMMERPOINT_ROUNDS: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/d/d4/Hammerpoint_Rounds.svg?version=2a64cdceffe6c28787f6f50929d9d350';
+				// case APEX_ITEMS.SKULLPIERCER_RIFLING: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/c/ce/Skullpiercer_Rifling.svg?version=3c45ac7e2dee0f4f9e5bbb18ff5ef96d';
+				// case APEX_ITEMS.DOUBLE_TAP_TRIGGER: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/9/9b/Double_Tap_Trigger.svg?version=351da015b0d06624c9b3ae5e2d790727';
+				// case APEX_ITEMS.VAULT_KEY: return 'https://gamepedia.cursecdn.com/apexlegends_gamepedia_en/5/59/Vault_Key.svg?version=de07ef3a8227114372dc80fe4ac36c6d';
 
 				default: return null;
 			}

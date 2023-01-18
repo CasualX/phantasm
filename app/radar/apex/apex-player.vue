@@ -14,8 +14,7 @@ Vue.component('apex-player', {
 	},
 	computed: {
 		playerName: function() {
-			let player_resources = this.state.entity_list.lookup[this.state.entity_list.player_resources];
-			return player_resources ? player_resources.names[this.entity.index] : "";
+			return this.state.name_list[(this.entity.index - 1) * 2] || "";
 		},
 		followMe: function() {
 			return this.entity == this.local;
@@ -32,7 +31,7 @@ Vue.component('apex-player', {
 			return this.entity.armor_type > 0 ? "" + this.entity.armor_type : null;
 		},
 		iconStyle: function() {
-			let yaw = this.state.globals.local_entity == this.entity.index ? -this.entity.camera_angles[1] : -this.entity.angles[1];
+			let yaw = this.state.client.local_entity == this.entity.index ? -this.entity.camera_angles[1] : -this.entity.angles[1];
 			return {
 				'transform': 'rotate(' + yaw + 'deg)',
 				'stroke-width': this.followMe ? '0.1' : '0.05',

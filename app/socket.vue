@@ -16,6 +16,9 @@ class WebSocketStore {
 		this.role = null;
 		this.paused = false;
 		this.debugText = {};
+
+		this.strings = {};
+		this.apexRings = [];
 	}
 	reset() {
 		if (this.socket) {
@@ -40,6 +43,7 @@ class WebSocketStore {
 			sock.onerror = event => this.onerror(event);
 			sock.onmessage = event => this.onmessage(event);
 			this.socket = sock;
+			window.SOCKET = sock;
 		}
 		catch (ex) {
 			console.error(ex);
@@ -87,6 +91,15 @@ class WebSocketStore {
 				case this.game + '/update':
 					this.updateGame(data.message);
 					break;
+				case this.game + '/radar':
+					this.updateRadar(data.message);
+					break;
+				case 'strings':
+					this.updateStrings(data.message);
+					break;
+				case 'apex/rings':
+					this.apexRings = data.message;
+					break;
 			}
 		}
 		catch (ex) {
@@ -127,10 +140,18 @@ class WebSocketStore {
 			this.socket.send("net.state!");
 		}
 	}
+	updateRadar(state) {
+		if (!this.paused) {
+			window.radar = state;
+		}
+	}
 	debugWrite(message) {
 		if (!this.paused) {
 			Vue.set(this.debugText, message.scope, "" + message.content);
 		}
+	}
+	updateStrings(message) {
+		this.strings[message.name] = message.values;
 	}
 };
 </script>
